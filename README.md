@@ -7,6 +7,78 @@
 
 # Q&A
 
+### Q: On what chains are the smart contracts going to be deployed?
+Any EVM-compatible network
+___
+
+### Q: If you are integrating tokens, are you allowing only whitelisted tokens to work with the codebase or any complying with the standard? Are they assumed to have certain properties, e.g. be non-reentrant? Are there any types of [weird tokens](https://github.com/d-xo/weird-erc20) you want to integrate?
+Only whitelisted tokens can work with the codebase and these are USDC, USDT, and USDE.
+___
+
+### Q: Are there any limitations on values set by admins (or other roles) in the codebase, including restrictions on array lengths?
+No
+___
+
+### Q: Are there any limitations on values set by admins (or other roles) in protocols you integrate with, including restrictions on array lengths?
+No
+___
+
+### Q: For permissioned functions, please list all checks and requirements that will be made before calling the function.
+There is a ultisig behind those functions and a couple of team members will review that call before executing it.
+___
+
+### Q: Is the codebase expected to comply with any EIPs? Can there be/are there any deviations from the specification?
+The codebase should be optionally compliant with Diamond Standard (EIP-2535)
+___
+
+### Q: Are there any off-chain mechanisms for the protocol (keeper bots, arbitrage bots, etc.)? We assume they won't misbehave, delay, or go offline unless specified otherwise.
+There is a Muon oracle that provides data such as the uPnL of parties' positions. You should consider that the oracle won't provide any stale prices.
+___
+
+### Q: What properties/invariants do you want to hold even if breaking them has a low/unknown impact?
+Yes, report potential issues, including broken assumptions about function behavior, if they pose future integration risks. Key properties that should hold include correctness (accurate returns), security (resistant to manipulation), consistency (uniform behavior on-chain and off-chain), and reliability (functioning correctly under all conditions).
+
+Correctness:
+The function should return accurate and expected results based on its inputs and documented behavior. For example, if a read function is expected to return the current balance of an account, it should not return a cached or stale value.
+
+Security:
+The function should be resistant to manipulation and unauthorized access. It should not expose any vulnerabilities that could be exploited to return false or misleading information.
+
+Consistency:
+The function should behave uniformly across different environments (Different chains for example). 
+
+Reliability:
+The function should function correctly under all conditions, including edge cases and unexpected inputs. For example, a function that reads from a data structure should handle cases where the requested data does not exist and return a predefined error or null value.
+
+Low severity issues falling in these categories would not be valid and issues falling in these categories would be valid only for future integrations of other protocols with Symm.
+___
+
+### Q: Please discuss any design choices you made.
+All design decisions are documented and available here for reference:
+https://docs.symm.io/
+https://docs.symm.io/protocol-architecture/technical-documentation/contracts-documentation-0.8.4
+___
+
+### Q: Please list any known issues and explicitly state the acceptable risks for each known issue.
+Any risk is acceptable
+___
+
+### Q: We will report issues where the core protocol functionality is inaccessible for at least 7 days. Would you like to override this value?
+I would like to override the default value. The platform's core protocol functionality should not be inaccessible for more than 1 day. Any downtime exceeding 24 hours should be reported as a critical issue, as this could cause significant disruption to the platform's operations and user experience.
+Also the liquidation functionality should not be inaccessible for more than 2 hours.
+___
+
+### Q: Please provide links to previous audits (if any).
+https://docs.symm.io/legal-and-brand-and-security/security-audits-bugbounty/audits
+___
+
+### Q: Please list any relevant protocol resources.
+https://docs.symm.io/
+https://docs.symm.io/protocol-architecture/technical-documentation/contracts-documentation-0.8.4
+___
+
+
+
 # Audit scope
 
 
